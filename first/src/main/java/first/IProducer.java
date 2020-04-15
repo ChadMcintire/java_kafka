@@ -8,9 +8,9 @@ public interface IProducer {
 
     public void process(String message);
 
-    public static void write(KafkaProducer<String, String> producer, String topic, String message) {
-      ProducerRecord<String, String> pr = new ProducerRecord(
-        topic, message);
+    public static void write(KafkaProducer<String, String> producer,
+                             String topic, String message) {
+      ProducerRecord<String, String> pr = new ProducerRecord(topic, message);
       producer.send(pr);
     }
 
