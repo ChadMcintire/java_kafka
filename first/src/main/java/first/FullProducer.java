@@ -9,6 +9,8 @@ import org.apache.kafka.clients.producer.*;
 import com.maxmind.geoip2.*;
 import com.maxmind.geoip2.model.*;
 
+// a class use multiple inheritance, but can use 
+// multiple interfaces
 public class FullProducer implements IProducer {
 
     private final KafkaProducer<String, String> producer;

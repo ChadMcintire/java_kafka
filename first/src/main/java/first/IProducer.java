@@ -4,6 +4,8 @@ import java.util.Properties;
 
 import org.apache.kafka.clients.producer.*;
 
+//interfaces are by default plubic, static and final
+//they are also abstract and public
 public interface IProducer {
 
     public void process(String message);

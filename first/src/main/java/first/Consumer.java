@@ -17,13 +17,23 @@ public class Consumer {
     }
 
     public void run(IProducer producer) {
+    //subscribes to a topic oce the consumer is created
       this.consumer.subscribe(Arrays.asList(this.topic));
+    //maybe nest the while in a try
+
+    //make an infinite loop to continously poll the consumer
       while (true) {
+    //milisecond to wait before timing out / how long to poll kafka
         ConsumerRecords<String, String> records = consumer.poll(100);
+    //
         for (ConsumerRecord<String, String> record : records) {
           producer.process(record.value());
         }
-      }
+      } 
+      // I should add a try and a finally
+      //finally {
+      //    consumer.close();
+      //}
     }
 
     private static Properties createConfig(String servers, String groupId){
