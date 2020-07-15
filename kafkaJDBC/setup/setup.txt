@@ -1,0 +1,17 @@
+#start kafka services
+bin/zookeeper-server-start.sh config/zookeeper.properties
+bin/kafka-server-start.sh config/server.properties
+
+#make topics
+#in cluster option
+bin/kafka-topics.sh --create --bootstrap-server kafka-service:9092 --replication-factor 1 --partitions 1 --topic text-input
+bin/kafka-topics.sh --create --bootstrap-server kafka-service:9092 --replication-factor 1 --partitions 1 --topic text-output
+bin/kafka-console-producer.sh --topic text-input --broker-list kafka-service:9092
+bin/kafka-console-consumer.sh --topic text-output --from-beginning --bootstrap-server kafka-service:9092
+
+#local option
+bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic text-input
+bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic text-output
+bin/kafka-console-producer.sh --topic text-input --broker-list localhost:9092
+bin/kafka-console-consumer.sh --topic text-output --from-beginning --bootstrap-server localhost:9092
+
