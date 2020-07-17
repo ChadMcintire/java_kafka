@@ -15,23 +15,25 @@ import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Printed;
 import org.apache.kafka.streams.kstream.Produced;
 
+import com.google.gson.Gson;
+
 import java.util.Properties;
 
 public class KafkaStreamsYellingApp {
 
  public static void main(String[] args) throws Exception {
 
-  Connection c = null;
-  try {
-     Class.forName("org.postgresql.Driver");
-     c = DriverManager
-        .getConnection("jdbc:postgresql://localhost:5432/testdb", "testdb", "testdb");
-  } catch (Exception e) {
-     e.printStackTrace();
-     System.err.println(e.getClass().getName()+": "+e.getMessage());
-     System.exit(0);
-  }
-  System.out.println("Opened database successfully");
+  //Connection c = null;
+  //try {
+  //   Class.forName("org.postgresql.Driver");
+  //   c = DriverManager
+  //      .getConnection("jdbc:postgresql://localhost:5432/testdb", "testdb", "testdb");
+  //} catch (Exception e) {
+  //   e.printStackTrace();
+  //   System.err.println(e.getClass().getName()+": "+e.getMessage());
+  //   System.exit(0);
+  //}
+  //System.out.println("Opened database successfully");
 
   Properties props = new Properties();
 
@@ -56,9 +58,13 @@ public class KafkaStreamsYellingApp {
   KStream<String, String> upperCasedStream =
     simpleFirstStream.mapValues(String::toUpperCase);
 //
-  upperCasedStream.foreach((key, value) -> System.out.println(key + " => " + value));
 //  upperCasedStream.foreach((key, value) -> System.out.println(key + " => " + value));
+  
+  DbWriter a1 = new DbWriter();
+  //a1.test();
 
+  upperCasedStream.foreach((key, value) -> a1.test(value));
+//  upperCasedStream.foreach((key, value) -> System.out.println(key + " => " + value));
 //  KStream<String, String> source = builder.stream( "in-stream");
 //  source.foreach(new ForeachAction<String, String>() {
 //    void apply(String key, String value) {
